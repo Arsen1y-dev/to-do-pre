@@ -72,10 +72,11 @@ function createItem(item) {
 }
 
 function getTasksFromDOM() {
-    const itemsNamesElements = document.querySelectorAll('.to-do__item-text');
     const tasks = [];
 
-    itemsNamesElements.forEach(function (element) {
+    const itemElements = listElement.querySelectorAll('.to-do__item-text');
+
+    itemElements.forEach(function (element) {
         tasks.push(element.textContent);
     });
 

@@ -37,16 +37,13 @@ function createItem(item) {
     const duplicateButton = clone.querySelector(".to-do__item-button_type_duplicate");
     const editButton = clone.querySelector(".to-do__item-button_type_edit");
 
-    // Устанавливаем текст задачи
     textElement.textContent = item;
 
-    // Обработчик для кнопки удаления
     deleteButton.addEventListener('click', function () {
         clone.remove();
         updateStorage()
     });
 
-    // Обработчик для кнопки копирования
     duplicateButton.addEventListener('click', function () {
         const itemName = textElement.textContent;
         const newItem = createItem(itemName);
@@ -55,12 +52,10 @@ function createItem(item) {
         updateStorage()
     });
 
-    // Обработчик для кнопки редактирования
     editButton.addEventListener('click', function () {
         textElement.setAttribute('contenteditable', 'true');
         textElement.focus();
 
-        // Выделяем весь текст
         const range = document.createRange();
         range.selectNodeContents(textElement);
         const selection = window.getSelection();
@@ -68,22 +63,9 @@ function createItem(item) {
         selection.addRange(range);
     });
 
-    // Обработчик для завершения редактирования
     textElement.addEventListener('blur', function () {
         textElement.setAttribute('contenteditable', 'false');
         updateStorage()
-    });
-
-    // Обработчик для сохранения при нажатии Enter
-    textElement.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            textElement.blur();
-        } else if (e.key === 'Escape') {
-            e.preventDefault();
-            textElement.textContent = item; // Возвращаем исходный текст
-            textElement.blur();
-        }
     });
 
     return clone;
@@ -100,14 +82,12 @@ function getTasksFromDOM() {
     return tasks;
 }
 
-// Инициализация при загрузке страницы
 items = loadTasks();
 items.forEach(function (item) {
     const newItem = createItem(item);
     listElement.append(newItem);
 });
 
-// Обработчик отправки формы
 formElement.addEventListener('submit', function (event) {
     event.preventDefault();
 
